@@ -284,6 +284,10 @@ export const WaitlistView: React.FC<WaitlistViewProps> = ({ onBack, onSuccess, i
           <h2 className="text-md sm:text-lg font-bold uppercase tracking-widest mb-4 text-center md:text-left">Final Entry</h2>
           <div className="space-y-4">
             <p className="text-xs opacity-60 text-center md:text-left">Complete all quests to unlock the entrance.</p>
+            <div className="bg-primary/5 border-l-4 border-primary p-2 text-[8px] md:text-[9px] opacity-70 rounded">
+              <p className="font-bold uppercase mb-1">⚠️ DISCLAIMER</p>
+              <p>Points are for leaderboard ranking only. Not a financial instrument. Referral system is not MLM. See our Terms for details.</p>
+            </div>
             {error && <p className="text-red-500 text-[10px] uppercase font-bold text-center">{error}</p>}
             <PixelButton
               onClick={handleJoin}
