@@ -134,7 +134,7 @@ const App: React.FC = () => {
       case 'success':
         return (
           <WaitlistSuccessView
-            onReturn={() => setCurrentView('landing')}
+            onReturn={() => setCurrentView('waitlist')}
             isDark={isDark}
             selectedPotion={selectedPotion}
             userWallet={userWallet}

@@ -25,11 +25,17 @@ export const WaitlistSuccessView: React.FC<WaitlistSuccessViewProps> = ({ onRetu
         const res = await fetch(`/api/referrals?wallet=${userWallet}`);
         const data = await res.json();
         setReferralCount(data.referralCount);
+        console.log('🔄 Referral count updated:', data.referralCount);
       } catch (err) {
         console.error('Failed to fetch referrals:', err);
       }
     };
-    if (userWallet) fetchReferrals();
+    if (userWallet) {
+      fetchReferrals();
+      // Auto-refresh every 1 hour (3600000 ms)
+      const interval = setInterval(fetchReferrals, 3600000);
+      return () => clearInterval(interval);
+    }
   }, [userWallet]);
 
   const randomID = useMemo(() => {
@@ -111,8 +117,7 @@ export const WaitlistSuccessView: React.FC<WaitlistSuccessViewProps> = ({ onRetu
                   <p className="text-xs md:text-base font-bold mb-1 uppercase">🚀 Invite to rank up!</p>
                   <p className="text-[10px] md:text-xs opacity-60 mb-4 uppercase">
                     Your Recruits: <span className="text-primary font-bold">{referralCount !== null ? referralCount : '...'}</span>
-                  </p>
-
+                  </p>                  <p className="text-[8px] opacity-40 font-pixel uppercase tracking-widest mb-2">🔄 Updates Every 1 Hour</p>
                   <div className="bg-black/5 dark:bg-white/5 p-4 mb-4 text-left font-display text-xs md:text-sm space-y-1 border-l-4 border-primary">
                     <p>I just completed my @voxelempire registration</p>
                     <p>join using my referral link voxelempire.xyz</p>
