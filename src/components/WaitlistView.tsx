@@ -136,10 +136,11 @@ export const WaitlistView: React.FC<WaitlistViewProps> = ({ onBack, onSuccess, i
     if (!wallet || !tasks.every(t => t.completed)) return;
 
     setError('');
+    console.log('🚀 Submitting join request:', { wallet, points: totalPoints, potion: cacheService.get<any>('selected_potion')?.id });
 
     // Save to custom Neon backend
     try {
-      const res = await fetch('/api/join', {
+      const response = await fetch('/api/join', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -150,14 +151,19 @@ export const WaitlistView: React.FC<WaitlistViewProps> = ({ onBack, onSuccess, i
         })
       });
 
-      if (!res.ok) {
-        const message = await res.text().catch(() => '');
-        console.error('Failed to sync with backend. Status:', res.status, 'Body:', message);
+      console.log('📡 API Response:', { status: response.status, ok: response.ok });
+      
+      if (!response.ok) {
+        const errorText = await response.text().catch(() => '');
+        console.error('❌ API Error - Status:', response.status, 'Body:', errorText);
         setError('FAILED TO JOIN WAITLIST. PLEASE TRY AGAIN.');
         return;
       }
+
+      const data = await response.json();
+      console.log('✅ Join successful:', data);
     } catch (err) {
-      console.error('Failed to sync with backend:', err);
+      console.error('❌ Network Error:', err);
       setError('NETWORK ERROR WHILE JOINING. TRY AGAIN.');
       return;
     }

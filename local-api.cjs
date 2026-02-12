@@ -26,7 +26,8 @@ app.get('/api/health', (req, res) => {
 // --- API: JOIN ---
 app.post('/api/join', async (req, res) => {
     const { wallet, referrer, points, potion } = req.body;
-    console.log('Farmer Joining:', { wallet, points });
+    console.log('🌾 Farmer Joining:', { wallet, points, referrer, potion });
+    console.log('📝 DATABASE_URL present:', !!rawUrl, rawUrl.substring(0, 30) + '...');
 
     try {
         // 1. Initial Table Setup
@@ -65,9 +66,11 @@ app.post('/api/join', async (req, res) => {
         potion = EXCLUDED.potion
     `;
 
+        console.log('✅ Successfully saved to Neon:', { wallet, finalPoints });
         res.json({ success: true });
     } catch (err) {
-        console.error('DB Error:', err);
+        console.error('❌ DB Error:', err.message);
+        console.error('📍 Full error stack:', err);
         res.status(500).json({ error: `DATABASE ERROR: ${err.message}` });
     }
 });
