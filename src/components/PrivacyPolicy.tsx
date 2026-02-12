@@ -23,12 +23,12 @@ export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ onClose }) => {
           <div className="space-y-4 text-sm md:text-base font-display text-black dark:text-white/90 leading-relaxed">
             <section>
               <h3 className="font-bold text-primary uppercase mb-2">1. DATA COLLECTION</h3>
-              <p>We collect the following information:</p>
+              <p>We collect the following information to operate and improve the game:</p>
               <ul className="list-disc list-inside ml-2 space-y-1 opacity-80">
-                <li>Ethereum wallet addresses (for verification)</li>
-                <li>Social media task completion status</li>
-                <li>Referral information (optional)</li>
-                <li>Browser data via cookies/localStorage</li>
+                <li>Wallet addresses (for account and reward mapping)</li>
+                <li>Referral identifiers (when provided)</li>
+                <li>Activity and gameplay metrics necessary for rewards</li>
+                <li>Browser data (cookies) for session and preference management</li>
               </ul>
             </section>
 
@@ -36,24 +36,24 @@ export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ onClose }) => {
               <h3 className="font-bold text-primary uppercase mb-2">2. DATA USAGE</h3>
               <p className="opacity-80">Your data is used to:</p>
               <ul className="list-disc list-inside ml-2 space-y-1 opacity-80">
-                <li>Track your progress in the waitlist</li>
-                <li>Calculate referral rewards</li>
-                <li>Prevent duplicate entries</li>
-                <li>Improve user experience</li>
+                <li>Map and distribute in-game rewards correctly</li>
+                <li>Calculate referral rewards when applicable</li>
+                <li>Prevent duplicate or fraudulent activity</li>
+                <li>Improve gameplay and user experience</li>
               </ul>
             </section>
 
             <section>
               <h3 className="font-bold text-primary uppercase mb-2">3. DATA STORAGE</h3>
               <p className="opacity-80">
-                Your wallet address is stored in our Neon PostgreSQL database. We do not share your data with third parties without consent.
+                Your wallet address and related account data are stored securely by our backend systems. We do not share personal data with third parties without consent, except where required by law.
               </p>
             </section>
 
             <section>
               <h3 className="font-bold text-primary uppercase mb-2">4. RETENTION</h3>
               <p className="opacity-80">
-                Data is retained for the duration of the waitlist program and may be used for historical records.
+                We retain account and gameplay data as needed to support your experience and maintain accurate reward records. Data retention periods may vary and are kept only as long as necessary.
               </p>
             </section>
 

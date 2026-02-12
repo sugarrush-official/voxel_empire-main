@@ -18,6 +18,7 @@ export const WaitlistSuccessView: React.FC<WaitlistSuccessViewProps> = ({ onRetu
   const [showPassport, setShowPassport] = useState(false);
   const [referralCount, setReferralCount] = useState<number | null>(null);
   const passportRef = useRef<HTMLDivElement>(null);
+  const [showDownloadReminder, setShowDownloadReminder] = useState(true);
 
   useEffect(() => {
     const fetchReferrals = async () => {
@@ -75,6 +76,17 @@ export const WaitlistSuccessView: React.FC<WaitlistSuccessViewProps> = ({ onRetu
     window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`, '_blank');
   };
 
+  const downloadViaModal = async () => {
+    // Close the reminder
+    setShowDownloadReminder(false);
+    const wasOpen = showPassport;
+    if (!wasOpen) setShowPassport(true);
+    // Wait for modal to render
+    await new Promise(resolve => setTimeout(resolve, 600));
+    await handleDownload();
+    // keep passport open so user can inspect; if it was previously closed, leave it open
+  };
+
   const copyRefLink = () => {
     const referralLink = `${window.location.origin}?ref=${userWallet}`;
     navigator.clipboard.writeText(referralLink);
@@ -82,7 +94,7 @@ export const WaitlistSuccessView: React.FC<WaitlistSuccessViewProps> = ({ onRetu
   };
 
   return (
-    <div className="text-black dark:text-white antialiased h-[100dvh] overflow-hidden transition-colors duration-0 p-4 md:p-6 flex flex-col items-center justify-center">
+    <div className="text-black dark:text-white antialiased h-[100dvh] overflow-hidden transition-colors duration-0 p-4 md:p-6 flex flex-col items-center">
       <div className="w-full max-w-2xl h-full flex flex-col gap-2 md:gap-4 overflow-hidden py-2">
         <header className="flex items-center justify-start w-full shrink-0">
           <button onClick={onReturn} className="flex size-8 md:size-10 items-center justify-center bg-white dark:bg-zinc-800 pixel-border-outer hover:scale-105 transition-transform">
@@ -95,21 +107,22 @@ export const WaitlistSuccessView: React.FC<WaitlistSuccessViewProps> = ({ onRetu
           <button onClick={() => setActiveTab('leaderboard')} className={`flex-1 py-2 md:py-3 text-[9px] md:text-sm font-pixel uppercase pixel-border-outer transition-all leading-tight text-center flex items-center justify-center px-2 ${activeTab === 'leaderboard' ? 'bg-primary text-black' : 'bg-white/50 dark:bg-zinc-800/50 text-black dark:text-white opacity-60'}`}>Wallet</button>
         </div>
 
-        <main className="w-full flex-1 overflow-hidden flex flex-col min-h-0">
+        <main className="w-full flex-1 overflow-auto flex flex-col min-h-0">
           {activeTab === 'invite' ? (
             <div className="animate-in fade-in slide-in-from-bottom-2 duration-300 h-full flex flex-col">
-              <PixelCard className="p-4 md:p-8 border-4 border-black dark:border-white bg-white/95 dark:bg-zinc-900/95 shadow-[4px_4px_0_0_rgba(0,0,0,1)] dark:shadow-[4px_4px_0_0_rgba(255,255,255,0.05)] flex-1 flex flex-col justify-center overflow-hidden">
+              <PixelCard className="p-4 md:p-8 border-4 border-black dark:border-white bg-white/95 dark:bg-zinc-900/95 shadow-[4px_4px_0_0_rgba(0,0,0,1)] dark:shadow-[4px_4px_0_0_rgba(255,255,255,0.05)] flex-1 flex flex-col justify-start max-h-[70vh] overflow-auto">
                 <h1 className="text-xl md:text-4xl font-pixel leading-tight mb-2 md:mb-4 tracking-tighter text-center shrink-0">
                   CONGRATS, FARMER!<br />
                   <span className="text-primary block mt-1" style={{ textShadow: "1.5px 1.5px 0px #000" }}>SPOT SECURED</span>
                 </h1>
-                <p className="text-sm md:text-xl font-display opacity-80 mb-4 md:mb-8 leading-tight text-center shrink-0 max-w-lg mx-auto">
+                <p className="text-sm md:text-xl font-display opacity-80 mb-4 md:mb-6 leading-tight text-center shrink-0 max-w-full md:max-w-lg mx-auto px-2">
                   You have been drafted into Voxel Valley. Your tools are sharp and your soil is ready.
                 </p>
 
-                <div className="flex justify-center mb-4 md:mb-8 shrink-0">
-                  <div className="bg-primary/10 text-primary border-4 border-primary border-double px-6 py-4 text-sm md:text-2xl font-bold uppercase tracking-[0.2em] shadow-lg dark:shadow-primary/5">
-                    Farmer ID: <span className="text-black dark:text-white ml-2">{randomID}</span>
+                <div className="flex justify-center mb-4 md:mb-6 shrink-0 px-2 w-full">
+                  <div className="bg-primary/10 text-primary border-4 border-primary border-double w-full sm:w-auto px-4 py-3 text-sm md:text-2xl font-bold uppercase tracking-[0.15em] shadow-lg dark:shadow-primary/5 text-center">
+                    <div className="text-[10px] md:text-sm opacity-80">Farmer ID</div>
+                    <div className="mt-1 text-lg md:text-2xl text-black dark:text-white break-words font-display">{randomID}</div>
                   </div>
                 </div>
 
@@ -227,6 +240,27 @@ export const WaitlistSuccessView: React.FC<WaitlistSuccessViewProps> = ({ onRetu
               </PixelButton>
               <PixelButton variant="secondary" className="px-6 py-3" onClick={() => setShowPassport(false)}>CLOSE</PixelButton>
             </div>
+          </div>
+        </div>
+      )}
+
+      {showDownloadReminder && (
+        <div className="fixed inset-0 z-[120] flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setShowDownloadReminder(false)} />
+          <div className="relative w-full max-w-sm">
+            <PixelCard className="p-4 md:p-6 border-4 border-black dark:border-white bg-white dark:bg-zinc-900 shadow-2xl">
+              <h3 className="text-lg font-pixel font-bold mb-2 text-center">Your Voxel ID</h3>
+              <p className="text-sm opacity-80 mb-4 text-center">Make sure to download your Voxel ID now. This contains your Farmer ID and potion choice.</p>
+              <div className="flex gap-2">
+                <PixelButton className="flex-1 py-2" onClick={downloadViaModal}>
+                  DOWNLOAD ID
+                </PixelButton>
+                <PixelButton variant="secondary" className="flex-1 py-2" onClick={() => { setShowDownloadReminder(false); setShowPassport(true); }}>
+                  VIEW
+                </PixelButton>
+              </div>
+              <button onClick={() => setShowDownloadReminder(false)} className="mt-3 w-full text-xs text-center opacity-60">Remind me later</button>
+            </PixelCard>
           </div>
         </div>
       )}

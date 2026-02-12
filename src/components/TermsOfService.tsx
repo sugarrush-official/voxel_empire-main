@@ -29,9 +29,15 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({ onClose }) => {
             </section>
 
             <section>
-              <h3 className="font-bold text-primary uppercase mb-2">2. GAMIFIED WAITLIST</h3>
+              <h3 className="font-bold text-primary uppercase mb-2">2. GAME & REWARDS</h3>
               <p className="opacity-80">
-                Voxel Empire is a <strong>gamified waitlist program</strong>. Points earned are <strong>not guaranteed rewards</strong> and do not represent financial compensation. Points are for leaderboard ranking only.
+                Voxel Empire: Harvest & Havoc is a pixelated, NFT-themed game that rewards players based on their consistency and play-to-earn activity. In Voxel Empire: Harvest & Havoc, you’ll build a thriving voxel farm while battling dangerous creatures in fast-paced platformer combat.
+              </p>
+              <p className="opacity-80 mt-2">
+                Plant crops, raise animals, and expand your land but when night falls, the wilderness awakens. Explore side-scrolling dungeons, defeat powerful bosses, gather rare resources, and upgrade your weapons and tools to protect what you’ve built. Balance peaceful farming with intense combat as you grow from a small homestead into a legendary voxel empire.
+              </p>
+              <p className="opacity-80 mt-2">
+                Rewards are granted based on in-game progression and activity. These rewards are not guaranteed monetary compensation and are provided at the project's discretion.
               </p>
             </section>
 
@@ -66,7 +72,7 @@ export const TermsOfService: React.FC<TermsOfServiceProps> = ({ onClose }) => {
             <section>
               <h3 className="font-bold text-primary uppercase mb-2">7. PROGRAM CHANGES</h3>
               <p className="opacity-80">
-                We reserve the right to modify or cancel the waitlist program at any time without notice.
+                We reserve the right to modify or cancel the game, rewards, or related programs at any time without notice.
               </p>
             </section>
 

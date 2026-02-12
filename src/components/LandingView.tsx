@@ -84,9 +84,14 @@ export const LandingView: React.FC<LandingViewProps> = ({ onPlayNow, isDark, onT
             <span>•</span>
             <span>© 2026 Voxel Empire</span>
           </div>
-          <p className="text-[8px] md:text-[9px] font-pixel text-white/40 uppercase tracking-widest leading-none">
-            Gamified Waitlist | Not Financial Advice
-          </p>
+          <div className="space-y-1 max-w-lg px-4">
+            <div className="text-[11px] md:text-[12px] font-pixel text-black/70 dark:text-white/70 uppercase tracking-widest font-bold">
+              Voxel Empire: Harvest & Havoc
+            </div>
+            <div className="text-[9px] md:text-[10px] font-pixel text-black/60 dark:text-white/60 leading-tight">
+              Farm. Fight. Forge your empire. Build a thriving voxel farm by day and battle creatures by night. Rewards are distributed based on activity and in-game progression.
+            </div>
+          </div>
         </div>
       </footer>
     </div>
