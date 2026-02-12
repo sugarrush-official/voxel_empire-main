@@ -44,7 +44,7 @@ export const WaitlistView: React.FC<WaitlistViewProps> = ({ onBack, onSuccess, i
     return [
       { id: 0, label: 'Follow on X', points: 100, icon: 'campaign', completed: false },
       { id: 6, label: 'Turn on Notifications', points: 50, icon: 'notifications_active', completed: false },
-      { id: 1, label: 'Retweet Pinned', points: 150, icon: 'sync', completed: false },
+      { id: 1, label: '❤️ + ♻️ + comment on pinned tweet', points: 150, icon: 'sync', completed: false },
       { id: 4, label: 'Tweet about Launch', points: 100, icon: 'chat', completed: false },
       { id: 5, label: 'Submit Tweet Link', points: 50, icon: 'link', completed: false },
       { id: 2, label: 'Submit Wallet (ETH)', points: 200, icon: 'account_balance_wallet', completed: false },
