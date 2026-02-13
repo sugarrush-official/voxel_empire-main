@@ -33,6 +33,7 @@ export const WaitlistView: React.FC<WaitlistViewProps> = ({ onBack, onSuccess, i
     return cacheService.get<string>('referral_input') || '';
   });
   const [tweetLink, setTweetLink] = useState(() => cacheService.get<string>('tweet_link') || '');
+  const [commentLink, setCommentLink] = useState(() => cacheService.get<string>('comment_link') || '');
   const [error, setError] = useState('');
   const [activeInput, setActiveInput] = useState<number | null>(null);
   const [timers, setTimers] = useState<{ [key: number]: boolean }>({});
@@ -58,7 +59,8 @@ export const WaitlistView: React.FC<WaitlistViewProps> = ({ onBack, onSuccess, i
     cacheService.set('wallet_input', wallet);
     cacheService.set('referral_input', referralWallet);
     cacheService.set('tweet_link', tweetLink);
-  }, [tasks, wallet, referralWallet, tweetLink]);
+    cacheService.set('comment_link', commentLink);
+  }, [tasks, wallet, referralWallet, tweetLink, commentLink]);
 
   const totalPoints = useMemo(() => {
     const taskPoints = tasks.reduce((acc, task) => acc + (task.completed ? task.points : 0), 0);
@@ -70,6 +72,7 @@ export const WaitlistView: React.FC<WaitlistViewProps> = ({ onBack, onSuccess, i
 
   const validateWallet = (address: string) => /^0x[a-fA-F0-9]{40}$/.test(address.trim());
   const validateTweetLink = (link: string) => /^(https?:\/\/)?(www\.)?(x\.com|twitter\.com)\/.+$/.test(link.trim());
+  const validateCommentLink = (link: string) => /^(https?:\/\/)?(www\.)?(x\.com|twitter\.com)\/[a-zA-Z0-9_]+\/status\/\d+/.test(link.trim());
 
   const isTaskDisabled = (index: number) => {
     if (index === 0) return false;
@@ -88,12 +91,11 @@ export const WaitlistView: React.FC<WaitlistViewProps> = ({ onBack, onSuccess, i
     if (!task || task.completed || isTaskDisabled(index) || timers[id]) return;
 
     // 5. Verification Fake-check
-    if ([0, 1, 4, 6].includes(id)) {
+    if ([0, 4, 6].includes(id)) {
       setTimers(prev => ({ ...prev, [id]: true }));
 
       if (id === 0) window.open('https://twitter.com/intent/follow?screen_name=voxelempire', '_blank');
       else if (id === 6) window.open('https://x.com/voxelempire', '_blank');
-      else if (id === 1) window.open('https://x.com/voxelempire', '_blank');
       else if (id === 4) window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent('Join @voxelempire and secure your waitlist spot visit voxelempire.xyz')}`, '_blank');
 
       // Realistic "Verifying" time
@@ -101,6 +103,11 @@ export const WaitlistView: React.FC<WaitlistViewProps> = ({ onBack, onSuccess, i
         completeTask(id);
         setTimers(prev => ({ ...prev, [id]: false }));
       }, 7000);
+    } else if (id === 1) {
+      // Open pinned tweet in new tab and show input for comment link
+      window.open('https://x.com/voxelempire', '_blank');
+      setActiveInput(activeInput === id ? null : id);
+      setError('');
     } else {
       setActiveInput(activeInput === id ? null : id);
       setError('');
@@ -120,6 +127,14 @@ export const WaitlistView: React.FC<WaitlistViewProps> = ({ onBack, onSuccess, i
         setError('');
       } else {
         setError('INVALID ADDRESS!');
+      }
+    } else if (id === 1) {
+      if (validateCommentLink(commentLink)) {
+        completeTask(id);
+        setActiveInput(null);
+        setError('');
+      } else {
+        setError('INVALID COMMENT LINK! MUST BE LINK TO YOUR COMMENT ON THE PINNED TWEET');
       }
     } else if (id === 5) {
       if (validateTweetLink(tweetLink)) {
@@ -259,19 +274,20 @@ export const WaitlistView: React.FC<WaitlistViewProps> = ({ onBack, onSuccess, i
                   <div className="p-3 bg-zinc-100 dark:bg-zinc-800 border-x-2 border-b-2 border-black dark:border-zinc-700 animate-in slide-in-from-top-2">
                     <input
                       className="pixel-input w-full bg-white dark:bg-zinc-900 border-none text-black dark:text-white py-2 px-3 text-xs mb-2 truncate"
-                      placeholder={task.id === 5 ? "https://x.com/..." : "0x..."}
+                      placeholder={task.id === 1 ? "https://x.com/...status/..." : task.id === 5 ? "https://x.com/..." : "0x..."}
                       type="text"
-                      value={task.id === 2 ? wallet : task.id === 3 ? referralWallet : tweetLink}
+                      value={task.id === 2 ? wallet : task.id === 3 ? referralWallet : task.id === 1 ? commentLink : tweetLink}
                       onChange={(e) => {
                         const v = e.target.value;
                         if (task.id === 2) setWallet(v);
                         else if (task.id === 3) setReferralWallet(v);
+                        else if (task.id === 1) setCommentLink(v);
                         else if (task.id === 5) setTweetLink(v);
                         setError('');
                       }}
                     />
                     <PixelButton onClick={() => handleInputSubmit(task.id)} className="w-full py-2 text-xs">
-                      SUBMIT {task.id === 5 ? 'LINK' : 'ADDRESS'}
+                      SUBMIT {task.id === 1 ? 'COMMENT LINK' : task.id === 5 ? 'LINK' : 'ADDRESS'}
                     </PixelButton>
                   </div>
                 )}
