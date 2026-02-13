@@ -47,7 +47,7 @@ export const WaitlistView: React.FC<WaitlistViewProps> = ({ onBack, onSuccess, i
       { id: 6, label: 'Turn on Notifications', points: 50, icon: 'notifications_active', completed: false },
       { id: 1, label: '❤️ + ♻️ + comment on pinned tweet', points: 150, icon: 'sync', completed: false },
       { id: 4, label: 'Tweet about Launch', points: 100, icon: 'chat', completed: false },
-      { id: 5, label: 'Submit Tweet Link', points: 50, icon: 'link', completed: false },
+      { id: 5, label: 'Submit "Tweet about launch" Link', points: 50, icon: 'link', completed: false },
       { id: 2, label: 'Submit Wallet (ETH)', points: 200, icon: 'account_balance_wallet', completed: false },
       { id: 3, label: 'Add Referrer Wallet', points: 50, icon: 'person_add', completed: false },
     ];
@@ -302,7 +302,7 @@ export const WaitlistView: React.FC<WaitlistViewProps> = ({ onBack, onSuccess, i
             <p className="text-xs opacity-60 text-center md:text-left">Complete all quests to unlock the entrance.</p>
             <div className="bg-primary/5 border-l-4 border-primary p-2 text-[8px] md:text-[9px] opacity-70 rounded">
               <p className="font-bold uppercase mb-1">⚠️ DISCLAIMER</p>
-              <p>Points are for leaderboard ranking only. Not a financial instrument. Referral system is not MLM. See our Terms for details.</p>
+              <p>Points are for leaderboard ranking only.</p>
             </div>
             {error && <p className="text-red-500 text-[10px] uppercase font-bold text-center">{error}</p>}
             <PixelButton
