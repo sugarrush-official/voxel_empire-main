@@ -95,7 +95,7 @@ export const WaitlistView: React.FC<WaitlistViewProps> = ({ onBack, onSuccess, i
       setTimers(prev => ({ ...prev, [id]: true }));
 
       if (id === 0) window.open('https://twitter.com/intent/follow?screen_name=voxelempire', '_blank');
-      else if (id === 6) window.open('https://x.com/voxelempire', '_blank');
+      else if (id === 6) window.open('https://x.com/Voxelempire/status/2022355782189355372', '_blank');
       else if (id === 4) window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent('Join @voxelempire and secure your waitlist spot visit voxelempire.xyz')}`, '_blank');
 
       // Realistic "Verifying" time
@@ -105,7 +105,7 @@ export const WaitlistView: React.FC<WaitlistViewProps> = ({ onBack, onSuccess, i
       }, 7000);
     } else if (id === 1) {
       // Open pinned tweet in new tab and show input for comment link
-      window.open('https://x.com/voxelempire', '_blank');
+      window.open('https://x.com/Voxelempire/status/2022355782189355372', '_blank');
       setActiveInput(activeInput === id ? null : id);
       setError('');
     } else {
