@@ -11,11 +11,7 @@ interface GameIntroViewProps {
 }
 
 const DIALOGUES = [
-  "Halt, traveler! You must be the new settler the ancient scrolls whispered about...",
-  "The Voxel Valley hasn't seen a farmer of your spirit in over a thousand seasons.",
-  "Darkness is stirring. A mysterious 'Shadow Glitch' is creeping into our fertile soils, turning golden wheat into static.",
-  "Only a Master Harvester can grow the light back into this world and restore our Empire.",
-  "But even a Legend must start small... with their very first magical potion."
+  "whitelist is currently closed, see you after the mint on Opensea."
 ];
 
 export const GameIntroView: React.FC<GameIntroViewProps> = ({ onBack, onFinish, isDark, onToggleDark }) => {
@@ -36,18 +32,13 @@ export const GameIntroView: React.FC<GameIntroViewProps> = ({ onBack, onFinish, 
         clearInterval(interval);
         setIsTypingComplete(true);
       }
-    }, 40); // 40ms per character for a crisp RPG feel
+    }, 40);
 
     return () => clearInterval(interval);
   }, [step]);
 
   const handleNext = () => {
-    if (!isTypingComplete) return;
-    if (step < DIALOGUES.length - 1) {
-      setStep(step + 1);
-    } else {
-      onFinish();
-    }
+    window.open("https://opensea.io/collection/voxel-farm-land/overview", "_blank");
   };
 
   return (
@@ -58,7 +49,7 @@ export const GameIntroView: React.FC<GameIntroViewProps> = ({ onBack, onFinish, 
           onClick={onBack}
         >
           <span className="text-2xl font-bold text-black dark:text-white uppercase tracking-wider">
-            STEP 1/3
+            BACK
           </span>
         </div>
         <div className="w-10"></div>
@@ -97,18 +88,13 @@ export const GameIntroView: React.FC<GameIntroViewProps> = ({ onBack, onFinish, 
         </div>
 
         <div className="relative z-10 w-full space-y-8 mt-4">
-          <div className="flex justify-center space-x-4">
-            {DIALOGUES.map((_, i) => (
-              <div key={i} className={`pixel-dot transition-colors duration-300 w-3 h-3 bg-white/20 pixel-border ${i === step ? 'bg-primary' : ''}`}></div>
-            ))}
-          </div>
           <PixelButton
             variant="primary"
             className={`w-full py-4 text-3xl md:text-4xl transition-all ${!isTypingComplete ? 'opacity-50 grayscale cursor-not-allowed' : 'animate-pulse-subtle'}`}
             onClick={handleNext}
             disabled={!isTypingComplete}
           >
-            {step === DIALOGUES.length - 1 ? "CHOOSE A POTION" : "NEXT"}
+            MINT ON OPENSEA
           </PixelButton>
         </div>
       </main>

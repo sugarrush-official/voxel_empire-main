@@ -3,40 +3,26 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { LandingView } from './components/LandingView';
 import { GameIntroView } from './components/GameIntroView';
-import { PotionSelectionView } from './components/PotionSelectionView';
-import { WaitlistView } from './components/WaitlistView';
-import { WaitlistSuccessView } from './components/WaitlistSuccessView';
 import { PixelLoader } from './components/PixelLoader';
 import { cacheService } from './services/cacheService';
 
-type View = 'landing' | 'intro' | 'potion-selection' | 'waitlist' | 'success';
+type View = 'landing' | 'intro';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<View>(() => {
-    return cacheService.get<View>('current_view') || 'landing';
+    const cached = cacheService.get<string>('current_view');
+    return (cached === 'landing' || cached === 'intro') ? (cached as View) : 'landing';
   });
   const [isDark, setIsDark] = useState(() => {
     return cacheService.get<boolean>('is_dark') || false;
   });
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedPotion, setSelectedPotion] = useState<any>(() => {
-    return cacheService.get<any>('selected_potion') || null;
-  });
-  const [userWallet, setUserWallet] = useState(() => {
-    return cacheService.get<string>('user_wallet') || '';
-  });
-  const [userPoints, setUserPoints] = useState(() => {
-    return cacheService.get<number>('user_points') || 0;
-  });
 
   // Persist State Changes
   useEffect(() => {
     cacheService.set('current_view', currentView);
     cacheService.set('is_dark', isDark);
-    cacheService.set('selected_potion', selectedPotion);
-    cacheService.set('user_wallet', userWallet);
-    cacheService.set('user_points', userPoints);
-  }, [currentView, isDark, selectedPotion, userWallet, userPoints]);
+  }, [currentView, isDark]);
 
 
   useEffect(() => {
@@ -101,44 +87,9 @@ const App: React.FC = () => {
             onBack={() => {
               setCurrentView('landing');
             }}
-            onFinish={() => setCurrentView('potion-selection')}
+            onFinish={() => { }}
             isDark={isDark}
             onToggleDark={toggleDarkMode}
-          />
-        );
-      case 'potion-selection':
-        return (
-          <PotionSelectionView
-            onBack={() => setCurrentView('intro')}
-            onComplete={(potion) => {
-              setSelectedPotion(potion);
-              setCurrentView('waitlist');
-            }}
-            isDark={isDark}
-            onToggleDark={toggleDarkMode}
-          />
-        );
-      case 'waitlist':
-        return (
-          <WaitlistView
-            onBack={() => setCurrentView('potion-selection')}
-            onSuccess={(wallet, points) => {
-              setUserWallet(wallet);
-              setUserPoints(points);
-              setCurrentView('success');
-            }}
-            isDark={isDark}
-            onToggleDark={() => setIsDark(!isDark)}
-          />
-        );
-      case 'success':
-        return (
-          <WaitlistSuccessView
-            onReturn={() => setCurrentView('waitlist')}
-            isDark={isDark}
-            selectedPotion={selectedPotion}
-            userWallet={userWallet}
-            userPoints={userPoints}
           />
         );
       default:

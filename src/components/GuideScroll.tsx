@@ -11,13 +11,13 @@ export const GuideScroll: React.FC<GuideScrollProps> = ({ onClose }) => {
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-sm animate-fade-in overflow-hidden">
       <div className="relative w-full max-w-lg flex flex-col items-center max-h-[98vh] sm:max-h-[95vh] pointer-events-auto">
-        
+
         {/* Guide Character - Styled for the specific sheet provided */}
         <div className="mb-[-20px] sm:mb-[-24px] z-20 drop-shadow-[0_4px_0_rgba(0,0,0,0.5)] shrink-0 transition-transform hover:scale-110">
-          <PixelCharacter 
-            className="scale-[2.2] sm:scale-[3] origin-bottom" 
-            animation="idle" 
-            direction="front" 
+          <PixelCharacter
+            className="scale-[2.2] sm:scale-[3] origin-bottom"
+            animation="idle"
+            direction="front"
           />
         </div>
 
@@ -26,7 +26,7 @@ export const GuideScroll: React.FC<GuideScrollProps> = ({ onClose }) => {
           {/* Scroll Texture/Edges */}
           <div className="absolute top-0 left-0 w-full h-3 bg-amber-950/20 border-b-2 border-amber-950/10"></div>
           <div className="absolute bottom-0 left-0 w-full h-3 bg-amber-950/20 border-t-2 border-amber-950/10"></div>
-          
+
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold uppercase tracking-tighter mb-4 sm:mb-8 text-amber-950 border-b-4 border-amber-900/30 w-full text-center pb-2">
             The Voxel Chronicles
           </h2>
@@ -53,19 +53,12 @@ export const GuideScroll: React.FC<GuideScrollProps> = ({ onClose }) => {
                 You are not alone. Join over 1 million farmers in building the greatest empire the pixelated world has ever seen. Trade and thrive!
               </p>
             </section>
-
-            <section className="pb-8 group">
-              <h3 className="font-bold text-amber-900 underline underline-offset-8 mb-3 sm:mb-4 uppercase tracking-widest">CHAPTER IV: LEGACY</h3>
-              <p className="font-display opacity-90 group-hover:opacity-100 transition-opacity">
-                Secure your spot in the early harvest waitlist. Exclusive rewards like the 'Golden Hoe' await those who lead the charge into 2026.
-              </p>
-            </section>
           </div>
 
           {/* Footer Area with clear CTA */}
           <div className="mt-6 sm:mt-10 w-full flex justify-center shrink-0 border-t-2 border-amber-900/20 pt-4 sm:pt-6">
-            <PixelButton 
-              variant="secondary" 
+            <PixelButton
+              variant="secondary"
               onClick={onClose}
               className="px-8 sm:px-14 py-3 sm:py-4 text-2xl sm:text-3xl !bg-amber-800 !text-white shadow-[inset_-4px_-4px_0_0_#451a03,0_-4px_0_0_#000,0_4px_0_0_#000,-4px_0_0_0_#000,4px_0_0_0_#000] hover:scale-105 active:scale-95 transition-all"
             >

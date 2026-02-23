@@ -66,17 +66,38 @@ export const LandingView: React.FC<LandingViewProps> = ({ onPlayNow, isDark, onT
 
       <footer className="relative z-10 py-4 sm:py-8 bg-zinc-900/10 text-center shrink-0">
         <div className="flex flex-col items-center gap-4">
-          <a
-            href="https://x.com/voxelempire"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative flex items-center justify-center w-12 h-12 bg-white dark:bg-zinc-900 border-4 border-black dark:border-white shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_0_rgba(0,0,0,1)] transition-all"
-          >
-            {/* Custom Pixelated X using SVG */}
-            <svg viewBox="0 0 24 24" className="w-8 h-8 fill-black dark:fill-white" style={{ imageRendering: 'pixelated' }}>
-              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-            </svg>
-          </a>
+          <div className="flex gap-4">
+            <a
+              href="https://x.com/voxelempire"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative flex items-center justify-center w-12 h-12 bg-white dark:bg-zinc-900 border-4 border-black dark:border-white shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_0_rgba(0,0,0,1)] transition-all"
+            >
+              <svg viewBox="0 0 24 24" className="w-8 h-8 fill-black dark:fill-white" style={{ imageRendering: 'pixelated' }}>
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+            </a>
+            <a
+              href="https://discord.gg/cnUb6ErkZN"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative flex items-center justify-center w-12 h-12 bg-white dark:bg-zinc-900 border-4 border-black dark:border-white shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_0_rgba(0,0,0,1)] transition-all"
+            >
+              <svg viewBox="0 0 24 24" className="w-8 h-8 fill-black dark:fill-white" style={{ imageRendering: 'pixelated' }}>
+                <path d="M19.27 4.73C17.81 4.05 16.24 3.55 14.59 3.26l-.31.67C12.78 3.73 11.22 3.73 9.72 3.93l-.31-.67C7.76 3.55 6.19 4.05 4.73 4.73 1.77 9.14.97 13.44 1.37 17.65 3.33 19.11 5.2 20 7.01 20.57l.88-1.07C6.91 19.1 6.01 18.42 5.17 17.61c.45.33.91.64 1.39.92 3.44 1.58 7.18 1.58 10.58 0 .48-.28.94-.59 1.39-.92-.84.81-1.74 1.49-2.72 1.89l.88 1.07c1.81-.57 3.68-1.46 5.64-2.92.49-4.72-.81-9.02-3.41-12.92zM8.52 14.91c-1.03 0-1.89-.95-1.89-2.11s.83-2.11 1.89-2.11c1.06 0 1.9.95 1.89 2.11-.01 1.16-.83 2.11-1.89 2.11zm6.97 0c-1.03 0-1.89-.95-1.89-2.11s.83-2.11 1.89-2.11c1.06 0 1.9.95 1.89 2.11-.01 1.16-.83 2.11-1.89 2.11z" />
+              </svg>
+            </a>
+            <a
+              href="https://opensea.io/collection/voxel-farm-land/overview"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative flex items-center justify-center w-12 h-12 bg-white dark:bg-zinc-900 border-4 border-black dark:border-white shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_0_rgba(0,0,0,1)] transition-all"
+            >
+              <svg viewBox="0 0 24 24" className="w-8 h-8 fill-black dark:fill-white" style={{ imageRendering: 'pixelated' }}>
+                <path d="M16.471 3.5c-.529 0-.96.431-.96.96 0 .529.431.96.96.96s.96-.431.96-.96c0-.529-.431-.96-.96-.96zM11.996 1L3.5 15.5h16.992L11.996 1zm0 3.774l5.441 9.326H6.555l5.441-9.326zM2 17v4h20v-4H2z" />
+              </svg>
+            </a>
+          </div>
           <div className="flex gap-2 justify-center flex-wrap text-[9px] md:text-[10px] font-pixel text-black/60 dark:text-white/60 uppercase tracking-widest">
             <button onClick={() => setShowPrivacy(true)} className="hover:text-primary transition-colors">Privacy</button>
             <span>•</span>
