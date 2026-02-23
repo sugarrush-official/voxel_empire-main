@@ -93,9 +93,12 @@ export const LandingView: React.FC<LandingViewProps> = ({ onPlayNow, isDark, onT
               rel="noopener noreferrer"
               className="group relative flex items-center justify-center w-12 h-12 bg-white dark:bg-zinc-900 border-4 border-black dark:border-white shadow-[4px_4px_0_0_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_0_rgba(0,0,0,1)] transition-all"
             >
-              <svg viewBox="0 0 24 24" className="w-8 h-8 fill-black dark:fill-white" style={{ imageRendering: 'pixelated' }}>
-                <path d="M16.471 3.5c-.529 0-.96.431-.96.96 0 .529.431.96.96.96s.96-.431.96-.96c0-.529-.431-.96-.96-.96zM11.996 1L3.5 15.5h16.992L11.996 1zm0 3.774l5.441 9.326H6.555l5.441-9.326zM2 17v4h20v-4H2z" />
-              </svg>
+              <img
+                src="/Logomark-Blue.svg"
+                alt="OpenSea"
+                className="w-8 h-8 object-contain"
+                style={{ imageRendering: 'pixelated' }}
+              />
             </a>
           </div>
           <div className="flex gap-2 justify-center flex-wrap text-[9px] md:text-[10px] font-pixel text-black/60 dark:text-white/60 uppercase tracking-widest">
